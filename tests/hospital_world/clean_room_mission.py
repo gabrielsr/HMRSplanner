@@ -3,7 +3,6 @@ import pytest
 from gmrs.model.mission.mission import Mission
 from gmrs.model.mission.goal import Goal
 from gmrs.model.mission.task import Task
-from gmrs.model.mission.decomposition import Decomposition
 
 from gmrs.model.context.location import Location
 
@@ -11,10 +10,11 @@ from gmrs.model.context.robot import Robot
 
 from gmrs.utils.mission_specification import set_refinement, set_location
 from gmrs.planner.manager import Manager
+from gmrs.model.mission.operator import OP
+
 
 # scenario context 
 room = Location('room')
-sequential = Decomposition('Sequential')
 
 context = {}
 
@@ -35,7 +35,7 @@ class ts:
 
 # refinements
 set_refinement(
-    sequential,
+    OP.SEQ,
     ts.clean_and_tidy_room,
     (ts.tidy_objects,
      ts.clean_and_tidy_room)

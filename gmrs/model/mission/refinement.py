@@ -1,7 +1,7 @@
 from gmrs.graph.edge import Edge
 
 
-class Decomposition(Edge):
+class Refinement(Edge):
 
     def __init__(self, type):
         self.type = type
@@ -10,5 +10,3 @@ class Decomposition(Edge):
 def set_decomposition():
     pass
 
-
-sequential = Decomposition('Sequential')
