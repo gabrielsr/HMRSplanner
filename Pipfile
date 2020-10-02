@@ -10,6 +10,8 @@ pytest-cov = "*"
 autopep8 = "*"
 codacy-coverage = "*"
 pytest-mock = "*"
+setuptools = "*"
+wheel = "*"
 
 [packages]
 simpy = "*"
@@ -21,6 +23,7 @@ collision = "*"
 pep8 = "*"
 networkx = "*"
 dependency-injector = "*"
+
 
 [requires]
 python_version = "3.8.2"
