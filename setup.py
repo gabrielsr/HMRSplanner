@@ -1,17 +1,20 @@
 
+from setuptools import setup, find_packages
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
-    name="hmrsplanner",  # Replace with your own username
-    version="0.0.1",
+setup(
+    name="hmrsplanner",
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
     author="Gabriel Rodrigues",
     author_email="gabrielsr@gmail.com",
     description="Planner for Heterogeneous Multi-Robots Systems",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/gabrielsr/hmrsplanner",
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

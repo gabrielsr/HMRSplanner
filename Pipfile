@@ -12,6 +12,7 @@ codacy-coverage = "*"
 pytest-mock = "*"
 setuptools = "*"
 wheel = "*"
+setuptools-scm = "*"
 
 [packages]
 simpy = "*"
@@ -23,7 +24,6 @@ collision = "*"
 pep8 = "*"
 networkx = "*"
 dependency-injector = "*"
-
 
 [requires]
 python_version = "3.8.2"
