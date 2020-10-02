@@ -1,3 +1,0 @@
-import pytest
-from .hospital_world.clean_room_mission import clean_room_mission_manager
-

@@ -9,6 +9,7 @@ flake8 = "*"
 pytest-cov = "*"
 autopep8 = "*"
 codacy-coverage = "*"
+pytest-mock = "*"
 
 [packages]
 simpy = "*"
@@ -19,6 +20,7 @@ pyglet = "*"
 collision = "*"
 pep8 = "*"
 networkx = "*"
+dependency-injector = "*"
 
 [requires]
 python_version = "3.8.2"
