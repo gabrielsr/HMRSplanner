@@ -10,6 +10,9 @@ pytest-cov = "*"
 autopep8 = "*"
 codacy-coverage = "*"
 pytest-mock = "*"
+setuptools = "*"
+wheel = "*"
+setuptools-scm = "*"
 
 [packages]
 simpy = "*"
