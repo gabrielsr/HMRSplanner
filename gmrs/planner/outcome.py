@@ -14,6 +14,12 @@ class Outcome:
         for key, value in rewards.items():
             setattr(self, key, value)
 
+    def get(self, name: str):
+        return getattr(self, name)
+
+    def set(self, name: str, value: any):
+        setattr(self, name, value)
+
 
 def is_success(outcome: Outcome):
     return outcome.res == Result.SUCCESS

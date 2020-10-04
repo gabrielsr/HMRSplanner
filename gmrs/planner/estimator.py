@@ -1,42 +1,48 @@
+import itertools
 from typing import Type
 from collections.abc import Iterable
-import itertools
 
-from gmrs.evaluation.outcome import Outcome
+from gmrs.planner.outcome import Outcome
 
-from gmrs.planner.submodel import SubModel
 from gmrs.planner.submodel import ConstantEvaluationSubmodel, RefinedSubmodel
 from gmrs.planner.submodel import MultipleConstantEvaluationsSubmodel
 
-from gmrs.objective.objective_system import ObjectiveSystem
+from gmrs.objective.property_base import Property
 from .operators.ievaluator import IEvaluator
+from ..planner.submodel import IEvaluable
+from ..objective.objective import Objective
+
+
+class noupPipe:
+    def pipe(self, params):
+        return params
 
 
 class Estimator:
-    objective_systems: [ObjectiveSystem] = []
-    operators = dict()
-
     def __init__(self):
-        pass
+        self.objective_systems: [Property] = []
+        self.operators = dict()
+        self.reducer = noupPipe()
 
-    def eval_op(self, op, submodels: [SubModel]):
+    def eval_op(self, op, submodels: [IEvaluable]):
         operator: IEvaluator = self.operators[op]
         return operator.eval(submodels)
 
     def eval_single(self, model):
         if isinstance(model, ConstantEvaluationSubmodel):
-            return model.evaluation
+            return model.eval()
         elif isinstance(model,  MultipleConstantEvaluationsSubmodel):
             return model.eval()
         elif isinstance(model, RefinedSubmodel):
             op = model.op
-            return self.eval_op(op, model.refinements)
+            eval_ = self.eval_op(op, model.refinements)
+            return self.reducer.pipe(eval_)
         else:
             mt = model.__class__.__name__
             err = f'trying to evaluate not supported model type {mt}'
             raise Exception(err)
 
-    def combineGen(self, gena, genb, func):
+    def combineGen(self, func, gena, genb):
         a = gena if isinstance(gena, Iterable) else [gena]
         b = genb if isinstance(genb, Iterable) else [genb]
         return itertools.starmap(func, itertools.product(a, b))
@@ -62,8 +68,9 @@ class Estimator:
 # Factory
 
 def estimatorFactory(
-            operators: [],  # operators: [Type[Operator]],
-            objective_systems: [Type[ObjectiveSystem]]) -> Estimator:
+        operators: [],  # operators: [Type[Operator]],
+        objective_systems: [Type[Property]],
+        reducer: IEvaluable = None) -> Estimator:
 
     estimator = Estimator()
 
@@ -72,4 +79,9 @@ def estimatorFactory(
         estimator.operators[op.code] = op
 
     estimator.objective_systems = objective_systems
+
+    if reducer is not None:
+        objective = Objective(*objective_systems)
+        estimator.reducer = reducer(objective)
+
     return estimator

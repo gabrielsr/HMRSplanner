@@ -1,6 +1,6 @@
 
 from gmrs.model.capability import Capability
-from gmrs.planner.sill_base import SkillBase
+from gmrs.planner.skill_base import SkillPlannerBase
 from gmrs.model.robot import Robot
 from gmrs.model.property import Property
 
@@ -17,11 +17,3 @@ def capability(label, **properties):
     cap = Capability(label)
     cap.addProperties(**properties)
     return cap
-
-
-def skill(id):
-    return SkillBase(id)
-
-
-def robot(id):
-    return Robot(id)

@@ -1,9 +1,9 @@
 
 import abc
 
-from gmrs.evaluation.evaluation import Evaluation
+from gmrs.planner.evaluation import Evaluation
 
-from ..submodel import SubModel
+from ..submodel import IEvaluable
 from ..estimator import Estimator
 
 
@@ -14,6 +14,6 @@ class Operator:
         self.base = base
 
     @abc.abstractclassmethod
-    def eval(self, submodel: SubModel) -> [Evaluation]:
+    def eval(self, submodel: IEvaluable) -> [Evaluation]:
         pass
 

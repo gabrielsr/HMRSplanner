@@ -3,13 +3,13 @@ import time
 
 
 
-from gmrs.utils.model import constant_outcomes
+from gmrs.util.model import constant_outcomes
 
 from gmrs.planner.operators.sequential import Sequential, SEQ_OP
 from gmrs.planner.submodel import MultipleConstantEvaluationsSubmodel
 from gmrs.planner.submodel import ConstantEvaluationSubmodel
 
-from gmrs.evaluation.evaluation import Evaluation
+from gmrs.planner.evaluation import Evaluation
 
 from gmrs.objective.probability import Probability
 

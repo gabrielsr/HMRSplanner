@@ -1,7 +1,7 @@
 import abc
 
-from gmrs.evaluation.evaluation import Evaluation
-from ..submodel import SubModel
+from gmrs.planner.evaluation import Evaluation
+from ..submodel import IEvaluable
 
 
 class IEvaluator:
@@ -10,5 +10,5 @@ class IEvaluator:
     """
 
     @abc.abstractclassmethod
-    def eval(self, submodels: [SubModel]) -> [Evaluation]:
+    def eval(self, submodels: [IEvaluable]) -> [Evaluation]:
         pass

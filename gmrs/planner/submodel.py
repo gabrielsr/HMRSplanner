@@ -1,22 +1,27 @@
 import abc
 
+from .evaluation import Evaluation
 
-class SubModel:
+
+class IEvaluable:
 
     @abc.abstractmethod
-    def eval(self):
+    def eval(self) -> [Evaluation]:
         '''
         return ConfigEvaluation
         '''
         pass
 
 
-class ConstantEvaluationSubmodel(SubModel):
+class ConstantEvaluationSubmodel(IEvaluable):
     def __init__(self, evaluation):
         self.evaluation = evaluation
 
+    def eval(self):
+        yield self.evaluation
 
-class MultipleConstantEvaluationsSubmodel(SubModel):
+
+class MultipleConstantEvaluationsSubmodel(IEvaluable):
     def __init__(self, *evaluations):
         self.evaluations = evaluations
 
@@ -24,7 +29,7 @@ class MultipleConstantEvaluationsSubmodel(SubModel):
         return self.evaluations
 
 
-class RefinedSubmodel(SubModel):
-    def __init__(self, op, refinements: [SubModel]):
+class RefinedSubmodel(IEvaluable):
+    def __init__(self, op, refinements: [IEvaluable]):
         self.op = op
         self.refinements = refinements
