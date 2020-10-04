@@ -1,4 +1,4 @@
-from gmrs.evaluation.outcome import Result
+from gmrs.planner.outcome import Result
 
 
 class VariabilityModelBuilder():

@@ -1,4 +1,4 @@
-from gmrs.evaluation.outcome import Outcome
+from gmrs.planner.outcome import Outcome
 
 
 class Evaluation():

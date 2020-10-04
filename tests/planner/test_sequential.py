@@ -2,10 +2,10 @@
 import pytest
 
 from gmrs.planner.submodel import ConstantEvaluationSubmodel, RefinedSubmodel
-from gmrs.utils.model import constant_outcomes
+from gmrs.util.model import constant_outcomes
 
 from gmrs.planner.operators.sequential import Sequential, SEQ_OP
-from gmrs.evaluation.evaluation import Evaluation
+from gmrs.planner.evaluation import Evaluation
 
 from gmrs.objective.probability import Probability
 
@@ -16,10 +16,6 @@ from gmrs.planner.estimator import Estimator, estimatorFactory
 # container.configure_logging()
 # container.config.from_ini('config.ini')
 
-
-estimator: Estimator = estimatorFactory(
-            operators=[Sequential],
-            objective_systems=[Probability])
 
 evaluationA = Evaluation({'config1': 'a'}, constant_outcomes(0.9))
 evaluationB = Evaluation({'config2': 'b'}, constant_outcomes(0.8))
@@ -45,6 +41,11 @@ submodels_with_mixed_refinement = [
 ]
 
 
+estimator: Estimator = estimatorFactory(
+    operators=[Sequential],
+    objective_systems=[Probability])
+
+
 def test_eval_seq_two_submodels():
     evaluation = next(estimator.eval_op(SEQ_OP, two_submodels))
     sr = Probability.success_rate(evaluation.outcomes)
@@ -60,7 +61,8 @@ def test_eval_seq_three_submodels():
 
 
 def test_eval_seq_with_mixed_refinement():
-    evaluation = next(estimator.eval_op(SEQ_OP, submodels_with_mixed_refinement))
+    evaluation = next(estimator.eval_op(SEQ_OP,
+                      submodels_with_mixed_refinement))
     sr = Probability.success_rate(evaluation.outcomes)
     assert 0.5184 == pytest.approx(sr)
     print(sr)

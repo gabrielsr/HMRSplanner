@@ -1,11 +1,16 @@
-from gmrs.evaluation.outcome import Outcome
-from .objective_system import ObjectiveSystem
+from gmrs.planner.outcome import Outcome
+from .property_base import Property
 
 
-class Time(ObjectiveSystem):
+class Time(Property):
 
-    id = 't'
+    code = 't'
 
     @staticmethod
     def seq_agg(res_outcome: Outcome, outcome1: Outcome, outcome2: Outcome):
-        res_outcome[id] = outcome1[id] + outcome2[id]
+        code = Time.code
+        res_outcome[code] = outcome1[code] + outcome2[code]
+
+    @staticmethod
+    def to_cost(outcome):
+        return outcome.get(Time.code)

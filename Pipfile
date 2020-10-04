@@ -24,6 +24,7 @@ collision = "*"
 pep8 = "*"
 networkx = "*"
 dependency-injector = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.8.2"

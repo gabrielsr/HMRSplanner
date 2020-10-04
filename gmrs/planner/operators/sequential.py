@@ -1,8 +1,8 @@
 import math
 
-from gmrs.evaluation.outcome import Result, Outcome, is_failure
-from gmrs.evaluation.evaluation import Evaluation
-from gmrs.planner.submodel import SubModel
+from gmrs.planner.outcome import Result, Outcome, is_failure
+from gmrs.planner.evaluation import Evaluation
+from gmrs.planner.submodel import IEvaluable
 
 from .operator import Operator
 from .ievaluator import IEvaluator
@@ -43,10 +43,10 @@ class Sequential(Operator, IEvaluator):
 
                     yield out
 
-    def eval(self, submodels: SubModel) -> [Evaluation]:
+    def eval(self, submodels: IEvaluable) -> [Evaluation]:
         return self.seq_eval(submodels)
 
-    def seq_eval(self, submodels: SubModel) -> [Evaluation]:
+    def seq_eval(self, submodels: IEvaluable) -> [Evaluation]:
         '''
         Evaluate submodels and aggregate results
         '''
@@ -60,8 +60,8 @@ class Sequential(Operator, IEvaluator):
             eval_l = self.seq_eval(submodels[0:mid])
             eval_r = self.seq_eval(submodels[mid:end])
             # conquer
-            agg = self.base.combineGen(eval_l, eval_r,
-                                       self.aggregate_evaluations)
+            agg = self.base.combineGen(self.aggregate_evaluations,
+                                       eval_l, eval_r)
             # agg = self.aggregate_evaluations(eval_l, eval_r)
             return agg
 

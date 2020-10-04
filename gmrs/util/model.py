@@ -1,5 +1,5 @@
 
-from gmrs.evaluation.outcome import Outcome, Result
+from gmrs.planner.outcome import Outcome, Result
 
 
 def constant_outcomes(p, **rewards):
